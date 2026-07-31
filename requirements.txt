@@ -1,0 +1,19 @@
+# --- Backend (FastAPI + RAG core) ---
+# Note: embeddings and generation both run through your local Ollama install
+# (models: nomic-embed-text for embeddings, llama3.2:latest for generation) —
+# no Hugging Face download needed. Vector search uses plain numpy instead of
+# FAISS — lighter to install, and just as fast at this project's scale.
+fastapi
+uvicorn[standard]
+python-multipart
+pypdf
+requests
+numpy
+pydantic
+
+# --- Frontend ---
+streamlit>=1.40
+
+# --- Notebook ---
+jupyter
+matplotlib
