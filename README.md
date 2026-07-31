@@ -140,39 +140,3 @@ study-assistant/
 9. **Fill in the Google Form** using the project details and what you
    actually observed running it.
 
-## Known limitations (documented further in the notebook)
-
-- Single-student, single-device only — no multi-user support
-- Keyword-based agent routing (quiz vs. progress vs. plain question) rather
-  than true function-calling — kept deliberately, since function-calling
-  would cost an extra model call per message and works against speed
-- Word-count-based chunking (not true tokenizer-based)
-- Image OCR uses a general vision model (moondream), not a dedicated OCR
-  engine — works best on clear handwriting/print
-- Math-question routing is keyword/pattern based
-- Fuzzy quiz grading uses string similarity, not semantic understanding — a
-  correct answer phrased very differently from the expected one could still
-  be marked wrong, and a wrong answer sharing enough words with the right
-  one could slip through. A model-based grader would be more accurate but
-  costs a model call per answer; worth comparing both in your notebook.
-- Multi-topic quiz attempts log the same correctness against every selected
-  topic (since the quiz response doesn't currently tag which topic each
-  question came from) — a reasonable simplification, but not per-question-accurate.
-
-## What was tested in the build environment vs. what needs testing on your machine
-
-- ✅ **Tested here:** the entire numpy-based vector index (build/add/search/
-  topic-filter/remove_source/save/load), fuzzy grading (8/8 realistic
-  paraphrase/typo/wrong-answer cases), spaced-repetition priority scoring,
-  session summary data-gathering, markdown export generation, chunking
-  (including paragraph-aware chunker), math-question detection (18/18),
-  quiz JSON retry logic, every new FastAPI route including multi-topic
-  quizzes/difficulty/grading/notes management/export/session-summary, and a
-  full realistic end-to-end session (ingest→quiz→grade→attempt→ask→
-  summary→export→delete→health) — all via FastAPI's TestClient with only
-  the Ollama network calls mocked
-- ⚠️ **Needs testing on your machine** (requires your local Ollama, not
-  reachable from the sandboxed build environment): real embedding/generation
-  quality and speed, math-model routing in practice, image transcription
-  quality, actual quiz content quality at each difficulty level, the
-  chat-input file attachment UI (requires Streamlit >=1.40 for `accept_file`)
