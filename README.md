@@ -102,7 +102,7 @@ study-assistant/
 | Image transcription/description | `moondream:1.8b` |
 | Embeddings for RAG retrieval | `nomic-embed-text` |
 
-## What YOU need to do (things Claude could not do for you)
+## Things to do on your own
 
 1. **Create a virtual environment and install dependencies:**
    ```
